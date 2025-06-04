@@ -25,8 +25,7 @@ public class AboutRenter {
     By buttonNext = By.xpath("//button[contains(@class, 'Button_Button__ra12g') and contains(@class, 'Button_Middle__1CSJM') and normalize-space()='Далее']");
     // Шаблон XPath для выбора конкретного элемента метро по значению
     private final String nameStateMetro = ".//button[@value='%s']";
-    // Кнопка "Яндекс" для перехода на главную страницу Яндекс
-    private final By yandexButton = By.xpath(".//*[@alt='Yandex']");
+
     // Кнопка "Самокат" для перехода на главную страницу ЯндексСамокат
     private final By scooterButton = By.xpath(".//*[@alt='Scooter']");
     WebDriver driver;
@@ -66,7 +65,7 @@ public class AboutRenter {
     }
 
     public AboutRenter inputTelephone(String newTelephone) {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(telephone));
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(telephone));
         driver.findElement(telephone).sendKeys(newTelephone);
         return this;
     }
@@ -96,9 +95,7 @@ public class AboutRenter {
         return new AboutScooter(driver);
     }
 
-    public void clickYandex() {
-        driver.findElement(yandexButton).click();
-    }
+
 
     public void clickScooter() {
         driver.findElement(scooterButton).click();

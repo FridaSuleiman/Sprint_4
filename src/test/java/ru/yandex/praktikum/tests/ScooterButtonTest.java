@@ -1,39 +1,61 @@
 package tests;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import ru.practicum.pages.AboutRenter;
 import ru.practicum.pages.HomePage;
 import ru.practicum.pages.OrderStatus;
 import ru.yandex.praktikum.tests.CommonTest;
+
 import static org.junit.Assert.assertEquals;
 
+@RunWith(JUnit4.class)
 public class ScooterButtonTest extends CommonTest {
+
+    private HomePage homePage;
+    private AboutRenter aboutRenter;
+    private OrderStatus orderStatus;
+
+    @Before
+    public void setUp() {
+        homePage = new HomePage(driver);
+        aboutRenter = new AboutRenter(driver);
+        orderStatus = new OrderStatus(driver);
+        homePage.clickCookiesButton(); // Единообразная обработка cookies
+    }
 
     @Test
     public void clickScooterFromAboutRenterPageTest() {
-        new HomePage(driver).openOrderForm()
+        homePage.openOrderForm()
                 .clickScooterAndReturnToMain();
-        assertEquals(HomePage.BASE_URL, driver.getCurrentUrl().trim());
+        verifyReturnToMainPage();
     }
 
     @Test
     public void clickScooterFromAboutScooterPageTest() {
-        new HomePage(driver).openOrderForm()
-                .clickCookiesButton();
+        homePage.openOrderForm();
 
-        new AboutRenter(driver).fillAboutRenterForm("Имя", "Фамилия", "Адрес", 77, "+79999999999")
+        aboutRenter.fillAboutRenterForm("Имя", "Фамилия", "Адрес", 77, "+79999999999")
                 .goToAboutScooter()
                 .clickScooterAndReturnToMain();
 
-        assertEquals(HomePage.BASE_URL, driver.getCurrentUrl().trim());
+        verifyReturnToMainPage();
     }
 
     @Test
     public void clickScooterFromOrderStatusPageTest() {
-        new HomePage(driver).clickCookiesButton()
-                .checkOrderStatus("12345");
+        homePage.checkOrderStatus("12345");
 
-        new OrderStatus(driver).clickScooterAndReturnToMain();
+        orderStatus.clickScooterAndReturnToMain();
 
-        assertEquals(HomePage.BASE_URL, driver.getCurrentUrl().trim());
+        verifyReturnToMainPage();
+    }
+
+    private void verifyReturnToMainPage() {
+        assertEquals("Не произошел возврат на главную страницу",
+                HomePage.BASE_URL,
+                driver.getCurrentUrl().trim());
     }
 }

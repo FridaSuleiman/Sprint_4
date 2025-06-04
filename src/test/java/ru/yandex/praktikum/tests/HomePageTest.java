@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 import ru.practicum.pages.HomePage;
-
+import static ru.yandex.praktikum.tests.Constants.*;
 
 @RunWith(Parameterized.class)
 public class HomePageTest extends CommonTest {
@@ -18,17 +18,17 @@ public class HomePageTest extends CommonTest {
         this.expected = expected;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{0}") // Добавляем читаемые имена тестов
     public static Object[][] getParameters() {
         return new Object[][]{
-                {"price", new HomePage(null).getTextPriceAnswer()},
-                {"multipleScooters", new HomePage(null).getTextMultipleScootersAnswer()},
-                {"rentalTime", new HomePage(null).getTextRentalTimeAnswer()},
-                {"deliveryDate", new HomePage(null).getTextDeliveryDateAnswer()},
-                {"extendOrder", new HomePage(null).getTextExtendOrderAnswer()},
-                {"charging", new HomePage(null).getTextChargingAnswer()},
-                {"cancelOrder", new HomePage(null).getTextCancelOrderAnswer()},
-                {"deliveryOutsideMkad", new HomePage(null).getTextDeliveryOutsideMkadAnswer()}
+                {"price", PRICE_ANSWER},
+                {"multipleScooters", MULTIPLE_SCOOTERS_ANSWER},
+                {"rentalTime", RENTAL_TIME_ANSWER},
+                {"deliveryDate", DELIVERY_DATE_ANSWER},
+                {"extendOrder", EXTEND_ORDER_ANSWER},
+                {"charging", CHARGING_ANSWER},
+                {"cancelOrder", CANCEL_ORDER_ANSWER},
+                {"deliveryOutsideMkad", DELIVERY_OUTSIDE_MKAD_ANSWER}
         };
     }
 
@@ -39,8 +39,9 @@ public class HomePageTest extends CommonTest {
                 .scrollToQuestions()
                 .openQuestion(questionName);
 
-        String result = homePage.getAnswerText(questionName);
-
-        assertEquals(expected, result);
+        String actual = homePage.getAnswerText(questionName);
+        assertEquals("Неверный текст ответа для вопроса: " + questionName,
+                expected,
+                actual);
     }
 }

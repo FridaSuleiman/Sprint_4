@@ -76,15 +76,7 @@ public class HomePage {
     private final By deliveryOutsideMkadAnswer = By.id("accordion__panel-7");
 
 
-    // Тексты ответов на вопросы
-    private final String textPriceAnswer = "Сутки — 400 рублей. Оплата курьеру — наличными или картой.";
-    private final String textMultipleScootersAnswer = "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.";
-    private final String textRentalTimeAnswer = "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.";
-    private final String textDeliveryDateAnswer = "Только начиная с завтрашнего дня. Но скоро станем расторопнее.";
-    private final String textExtendOrderAnswer = "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.";
-    private final String textChargingAnswer = "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.";
-    private final String textCancelOrderAnswer = "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.";
-    private final String textDeliveryOutsideMkadAnswer = "Да, обязательно. Всем самокатов! И Москве, и Московской области.";
+    // Тексты ответов на вопросы перенесены в Constants
 
 
     WebDriver driver;
@@ -190,38 +182,6 @@ public class HomePage {
         return this;
     }
 
-    // Геттеры текстов ответов
-    public String getTextPriceAnswer() {
-        return textPriceAnswer;
-    }
-
-    public String getTextMultipleScootersAnswer() {
-        return textMultipleScootersAnswer;
-    }
-
-    public String getTextRentalTimeAnswer() {
-        return textRentalTimeAnswer;
-    }
-
-    public String getTextDeliveryDateAnswer() {
-        return textDeliveryDateAnswer;
-    }
-
-    public String getTextExtendOrderAnswer() {
-        return textExtendOrderAnswer;
-    }
-
-    public String getTextChargingAnswer() {
-        return textChargingAnswer;
-    }
-
-    public String getTextCancelOrderAnswer() {
-        return textCancelOrderAnswer;
-    }
-
-    public String getTextDeliveryOutsideMkadAnswer() {
-        return textDeliveryOutsideMkadAnswer;
-    }
 
     public HomePage openQuestion(String questionName) {
         By questionLocator = null;
@@ -262,5 +222,8 @@ public class HomePage {
             return driver.findElement(answerLocator).getText();
         }
         return "";
+    }
+    public void clickYandex() {
+        driver.findElement(yandexButton).click();
     }
 }
